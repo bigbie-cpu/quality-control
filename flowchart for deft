@@ -1,0 +1,37 @@
+import matplotlib.pyplot as plt
+
+# Create a new figure
+fig, ax = plt.subplots(figsize=(10, 8))
+
+# Define the positions for each step in the flowchart
+positions = {
+    "Raw Material Inspection": (0.5, 0.9),
+    "Surface Preparation": (0.5, 0.75),
+    "Paint Mixing": (0.5, 0.6),
+    "Painting Process": (0.5, 0.45),
+    "Drying/Curing": (0.5, 0.3),
+    "Final Inspection": (0.5, 0.15),
+    "Packaging": (0.5, 0.0)
+}
+
+# Draw rectangles for each step
+for step, pos in positions.items():
+    ax.text(pos[0], pos[1], step, ha="center", va="center", fontsize=12, 
+            bbox=dict(boxstyle="round,pad=0.3", edgecolor="black", facecolor="lightblue"))
+
+# Draw arrows to indicate flow
+arrow_props = dict(facecolor='black', shrink=0.05, width=0.5, headwidth=5)
+
+for i, step in enumerate(list(positions.keys())[:-1]):
+    start_pos = positions[step]
+    end_pos = positions[list(positions.keys())[i + 1]]
+    ax.annotate('', xy=end_pos, xytext=start_pos, arrowprops=arrow_props)
+
+# Set limits and hide axes
+ax.set_xlim(0, 1)
+ax.set_ylim(-0.1, 1)
+ax.axis('off')
+
+# Display the flowchart
+plt.title('Flowchart: Sequence of Events in Paint Finishing Process', fontsize=14)
+plt.show()
