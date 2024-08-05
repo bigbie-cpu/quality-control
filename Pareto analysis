@@ -1,0 +1,29 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+import pandas as pd
+
+# Step 3: Pareto Analysis
+# Defect types and their frequencies
+defect_types = ['Uneven Coating', 'Bubbling', 'Color Mismatch', 'Peeling/Flaking', 'Contamination']
+frequencies = [40, 25, 15, 10, 10]
+
+# Calculate cumulative frequencies and percentages
+cumulative_frequencies = np.cumsum(frequencies)
+cumulative_percentages = 100 * cumulative_frequencies / sum(frequencies)
+
+# Create a Pareto chart
+fig, ax = plt.subplots()
+ax.bar(defect_types, frequencies, color='skyblue')
+ax2 = ax.twinx()
+ax2.plot(defect_types, cumulative_percentages, color='red', marker='o')
+
+ax.set_xlabel('Defect Type')
+ax.set_ylabel('Frequency')
+ax2.set_ylabel('Cumulative Percentage')
+
+plt.title('Pareto Analysis of Paint Finishing Defects')
+plt.show()
+
+# Return the cumulative frequencies and percentages for reference
+cumulative_frequencies, cumulative_percentages
