@@ -1,0 +1,35 @@
+import matplotlib.pyplot as plt
+
+# Fishbone Diagram
+fig, ax = plt.subplots(figsize=(16, 8))
+
+# Draw main spine
+ax.plot([1, 9], [5, 5], color='black', lw=2)
+
+# Function to draw bones
+def draw_bone(position, label, causes, direction='up'):
+    y_main = 6 if direction == 'up' else 4
+    y_text = y_main + 0.3 if direction == 'up' else y_main - 0.3
+    y_cause = y_text + 0.3 if direction == 'up' else y_text - 0.3
+    
+    ax.plot([position, position], [5, y_main], color='black')
+    ax.text(position, y_text, label, ha='center', va='bottom' if direction == 'up' else 'top', fontsize=12, fontweight='bold')
+
+    for i, cause in enumerate(causes):
+        y = y_cause + 0.3 * i if direction == 'up' else y_cause - 0.3 * i
+        ax.text(position - 0.2, y, cause, ha='right', va='center', fontsize=10)
+        ax.plot([position - 0.2, position], [y, y], color='black')
+
+# Draw bones for each category
+draw_bone(2, 'Materials', ['Paint quality', 'Surface contaminants'], 'up')
+draw_bone(4, 'Methods', ['Incorrect application', 'Poor technique', 'Improper drying'], 'up')
+draw_bone(6, 'Machines', ['Spray guns', 'Conveyor speed', 'Curing ovens'], 'up')
+draw_bone(8, 'Measurements', ['Inaccurate thickness', 'Inconsistent inspections'], 'up')
+draw_bone(3, 'Manpower', ['Lack of training', 'Operator fatigue', 'Insufficient supervision'], 'down')
+draw_bone(7, 'Environment', ['Temperature', 'Humidity', 'Dust particles'], 'down')
+
+ax.set_xlim(1, 9)
+ax.set_ylim(3, 7)
+ax.axis('off')
+plt.title('Cause-and-Effect Diagram (Fishbone Diagram) for Paint Finishing Defects', fontsize=14)
+plt.show()
